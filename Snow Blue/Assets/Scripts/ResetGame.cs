@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ResetGame : MonoBehaviour
 {
-    public GameObject player;
+    public Movement player;
+    public MapGenerator map;
     private Vector3 _startPosition;
     
     // Start is called before the first frame update
@@ -18,7 +19,8 @@ public class ResetGame : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            player.GetComponent<Movement>().Reset(_startPosition);
+            player.Reset(_startPosition);
+            map.Reset();
         }
     }
 }
