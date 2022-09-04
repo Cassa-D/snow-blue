@@ -5,12 +5,12 @@ using UnityEngine;
 public class ResetGame : MonoBehaviour
 {
     public GameObject player;
-    private Vector3 startPosition;
+    private Vector3 _startPosition;
     
     // Start is called before the first frame update
     void Start()
     {
-        startPosition = player.transform.position;
+        _startPosition = player.transform.position;
     }
 
     // Update is called once per frame
@@ -18,11 +18,7 @@ public class ResetGame : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            player.transform.position = startPosition;
-            player.transform.rotation = Quaternion.Euler(Vector3.zero);
-            player.GetComponent<Movement>().enabled = true;
-            player.GetComponent<Movement>().startImpulse = 0;
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<Movement>().Reset(_startPosition);
         }
     }
 }

@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     public float speed;
 
     public float startImpulse;
+    private float startImpulseTimer;
 
     private void Start()
     {
@@ -24,10 +25,10 @@ public class Movement : MonoBehaviour
     
     void FixedUpdate() 
     {
-        if (startImpulse <= 1)
+        if (startImpulseTimer <= 1)
         {
-            startImpulse += Time.fixedDeltaTime;
-            rb.AddForce(Vector3.forward * 17.5f);
+            startImpulseTimer += Time.fixedDeltaTime;
+            rb.AddForce(Vector3.forward * startImpulse);
         }
         else
         {
@@ -42,5 +43,15 @@ public class Movement : MonoBehaviour
         {
             enabled = false;
         }
+    }
+
+    public void Reset(Vector3 startPosition)
+    {
+        enabled = true;
+        startImpulseTimer = 0;
+        rb.velocity = Vector3.zero;
+
+        transform.position = startPosition;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 }
