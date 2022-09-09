@@ -4,16 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
-public enum MapType
-{
-    Tree, Rock, Ramp
-}
+// ReSharper disable All
 
 [Serializable]
 public class Map
 {
-    public MapType type;
+    [Range(0, 4)]
+    public int difficulty;
     public GameObject prefab;
 }
 
@@ -23,14 +20,22 @@ public class MapGenerator : MonoBehaviour
     public Transform playerTra;
 
     public Vector3 mapAngle;
+    
     public int stayMaps;
+    public int preBuildMaps;
 
     private bool _creatingSection;
-    private List<GameObject> _generatedMaps = new List<GameObject>();
+    private List<GameObject> _generatedMaps;
 
     void Start()
     {
+        _generatedMaps = new List<GameObject>();
         transform.rotation = Quaternion.Euler(mapAngle);
+
+        for (var i = 0; i < preBuildMaps; i++)
+        {
+            GenerateMap();
+        }
     }
 
     private void Update()
@@ -41,13 +46,13 @@ public class MapGenerator : MonoBehaviour
             GenerateMap();
         }
 
-        if (_generatedMaps.Count > stayMaps)
+        if (_generatedMaps.Count > stayMaps + preBuildMaps)
         {
             Destroy(_generatedMaps[0]);
             _generatedMaps.RemoveAt(0);
         }
 
-        if (playerTra.position.z >= _generatedMaps[^1].transform.position.z)
+        if (playerTra.position.z >= _generatedMaps[^preBuildMaps].transform.position.z)
         {
             _creatingSection = false;
         }
@@ -65,8 +70,8 @@ public class MapGenerator : MonoBehaviour
         if (_generatedMaps.Count > 0)
         {
             var prevMap = _generatedMaps[^1];
-            var prevChildGroud = prevMap.transform.Find("Ground");
-            var prevPos = prevMap.transform.localPosition.z + 10 * prevChildGroud.transform.localScale.z;
+            var prevChildGround = prevMap.transform.Find("Ground");
+            var prevPos = prevMap.transform.localPosition.z + 10 * prevChildGround.transform.localScale.z / 2 + groundPos - 0.1f;
 
             groundPos = prevPos;
         }
@@ -83,6 +88,10 @@ public class MapGenerator : MonoBehaviour
             Destroy(map);
         }
         _generatedMaps = new List<GameObject>();
+        for (var i = 0; i < preBuildMaps; i++)
+        {
+            GenerateMap();
+        }
         _creatingSection = false;
     }
 }

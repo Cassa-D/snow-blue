@@ -32,7 +32,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            rb.AddForce(Vector3.forward * 5);
+            rb.AddForce(Vector3.forward * 4);
             rb.MovePosition(rb.position + new Vector3(movement, 0) * speed * Time.fixedDeltaTime);
         }
     }
