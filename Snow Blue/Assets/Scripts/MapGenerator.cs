@@ -4,19 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
-// ReSharper disable All
 
-[Serializable]
-public class Map
+public class MapGenerator : ResetScript
 {
-    [Range(0, 4)]
-    public int difficulty;
-    public GameObject prefab;
-}
-
-public class MapGenerator : MonoBehaviour
-{
-    public Map[] maps;
+    public GameObject[] maps;
     public Transform playerTra;
 
     public Vector3 mapAngle;
@@ -26,6 +17,9 @@ public class MapGenerator : MonoBehaviour
 
     private bool _creatingSection;
     private List<GameObject> _generatedMaps;
+
+    public PointsManager pManager;
+    private int _currDifficultyLevel;
 
     void Start()
     {
@@ -56,32 +50,49 @@ public class MapGenerator : MonoBehaviour
         {
             _creatingSection = false;
         }
+
+        _currDifficultyLevel = Mathf.FloorToInt(pManager.meters / 100);
     }
 
     void GenerateMap()
     {
-        var index = Random.Range(0, maps.Length);
-        var map = maps[index];
-
-        var groundChild = map.prefab.transform.Find("Ground");
+        var currDifficultyLevelMaps = GetCurrDifficultyLevelMaps();
+        
+        var index = Random.Range(0, currDifficultyLevelMaps.Length);
+        var map = currDifficultyLevelMaps[index];
+        
+        var groundChild = map.transform.Find("Ground");
         // Z Scale * Half plane unit default size (10 / 2)
         var groundPos = groundChild.localScale.z * 10 / 2;
-
+        
         if (_generatedMaps.Count > 0)
         {
             var prevMap = _generatedMaps[^1];
             var prevChildGround = prevMap.transform.Find("Ground");
-            var prevPos = prevMap.transform.localPosition.z + 10 * prevChildGround.transform.localScale.z / 2 + groundPos - 0.1f;
-
+            var prevPos = prevMap.transform.localPosition.z + 10 * prevChildGround.transform.localScale.z / 2 + groundPos;
+        
             groundPos = prevPos;
         }
         
-        var createdMap = Instantiate(map.prefab, transform);
-        createdMap.transform.localPosition = new Vector3(0, 0, groundPos);
+        var createdMap = Instantiate(map, transform);
+        createdMap.transform.localPosition = new Vector3(0,  - 0.05f, groundPos - 0.1f);
         _generatedMaps.Add(createdMap);
     }
 
-    public void Reset()
+    private GameObject[] GetCurrDifficultyLevelMaps()
+    {
+        List<GameObject> tmpMaps = new List<GameObject>();
+        foreach (var map in maps)
+        {
+            if (_currDifficultyLevel >= map.GetComponent<MapSection>().difficulty)
+            {
+                tmpMaps.Add(map);
+            }
+        }
+        return tmpMaps.ToArray();
+    }
+
+    public override void Reset()
     {
         foreach (var map in _generatedMaps)
         {
@@ -94,4 +105,6 @@ public class MapGenerator : MonoBehaviour
         }
         _creatingSection = false;
     }
+
+    public override void Reset(Vector3 sP) {}
 }

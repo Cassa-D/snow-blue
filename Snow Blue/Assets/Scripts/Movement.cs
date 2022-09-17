@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Movement : ResetScript
 {
     private float movement;
     private Rigidbody rb;
@@ -11,7 +11,10 @@ public class Movement : MonoBehaviour
     public float speed;
 
     public float startImpulse;
-    private float startImpulseTimer;
+    private float _startImpulseTimer;
+    
+    public float maxSpeed;
+    public float minSpeed;
 
     private void Start()
     {
@@ -21,18 +24,27 @@ public class Movement : MonoBehaviour
     void Update()
     {
         movement = Input.GetAxis("Horizontal");
+        
+        if (rb.velocity.z > maxSpeed)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, maxSpeed);
+        }
+        if (_startImpulseTimer > 1 && rb.velocity.z < minSpeed)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, minSpeed);
+        }
     }
     
     void FixedUpdate() 
     {
-        if (startImpulseTimer <= 1)
+        if (_startImpulseTimer <= 1)
         {
-            startImpulseTimer += Time.fixedDeltaTime;
+            _startImpulseTimer += Time.fixedDeltaTime;
             rb.AddForce(Vector3.forward * startImpulse);
         }
         else
         {
-            rb.AddForce(Vector3.forward * 4);
+            rb.AddForce(Vector3.forward * 4, ForceMode.Acceleration);
             rb.MovePosition(rb.position + new Vector3(movement, 0) * speed * Time.fixedDeltaTime);
         }
     }
@@ -45,10 +57,12 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public void Reset(Vector3 startPosition)
+    public override void Reset() {}
+
+    public override void Reset(Vector3 startPosition)
     {
         enabled = true;
-        startImpulseTimer = 0;
+        _startImpulseTimer = 0;
         rb.velocity = Vector3.zero;
 
         transform.position = startPosition;

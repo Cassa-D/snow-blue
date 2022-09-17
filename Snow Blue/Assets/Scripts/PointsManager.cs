@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PointsManager : MonoBehaviour
 {
-    private float _meters;
+    public float meters;
     public Transform player;
 
     public TMP_Text textGUI;
@@ -20,12 +20,12 @@ public class PointsManager : MonoBehaviour
 
     public void Reset()
     {
-        _meters = 0;
+        meters = 0;
     }
 
     private float CalculateMeters()
     {
         var position = player.position;
-        return Mathf.FloorToInt(Mathf.Sqrt(Mathf.Pow(position.z, 2) + Mathf.Pow(position.y, 2)) / 5);
+        return meters = Mathf.FloorToInt(Mathf.Sqrt(Mathf.Pow(position.z, 2) + Mathf.Pow(position.y, 2)) / 5);
     }
 }
