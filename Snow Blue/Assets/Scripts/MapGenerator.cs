@@ -75,13 +75,13 @@ public class MapGenerator : ResetScript
         }
         
         var createdMap = Instantiate(map, transform);
-        createdMap.transform.localPosition = new Vector3(0,  - 0.05f, groundPos - 0.1f);
+        createdMap.transform.localPosition = new Vector3(0,  0, groundPos);
         _generatedMaps.Add(createdMap);
     }
 
     private GameObject[] GetCurrDifficultyLevelMaps()
     {
-        List<GameObject> tmpMaps = new List<GameObject>();
+        var tmpMaps = new List<GameObject>();
         foreach (var map in maps)
         {
             if (_currDifficultyLevel >= map.GetComponent<MapSection>().difficulty)
@@ -94,6 +94,7 @@ public class MapGenerator : ResetScript
 
     public override void Reset()
     {
+        _currDifficultyLevel = 0;
         foreach (var map in _generatedMaps)
         {
             Destroy(map);
