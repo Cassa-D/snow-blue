@@ -22,9 +22,6 @@ public class Movement : ResetScript
 
     private AudioSource audio;
 
-    public AudioClip rigthDash;
-    public AudioClip leftDash;
-
     public TMP_Text velocity;
 
     private void Start()
@@ -49,6 +46,16 @@ public class Movement : ResetScript
         snowParticles.SetActive(isGrounded);
 
         velocity.text = Mathf.RoundToInt(rb.velocity.z) + " km/h";
+        
+        if (!audio.isPlaying && isGrounded)
+        {
+            audio.Play();
+        }
+
+        if (!isGrounded)
+        {
+            audio.Stop();
+        }
     }
     
     void FixedUpdate() 
@@ -62,12 +69,6 @@ public class Movement : ResetScript
         {
             rb.AddForce(Vector3.forward * 4, ForceMode.Acceleration);
             rb.MovePosition(rb.position + new Vector3(movement, 0) * speed * Time.fixedDeltaTime);
-
-            if (movement != 0 && !audio.isPlaying && isGrounded)
-            {
-                audio.clip = movement > 0 ? rigthDash : leftDash;
-                audio.Play();
-            }
         }
     }
 
@@ -82,6 +83,7 @@ public class Movement : ResetScript
             
             enabled = false;
             snowParticles.SetActive(false);
+            audio.Stop();
         }
     }
 

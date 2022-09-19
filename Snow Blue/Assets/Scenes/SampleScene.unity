@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1237,10 +1237,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745185937}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e1ef1eea633a5b84f881dad086a1cdcc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 58556742a034df64297a7b05b8ac564a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2130,7 +2130,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.35053766, y: 0.00000001874547, z: -0.0000000070161796, w: 0.93654865}
+  m_LocalRotation: {x: 0.35053766, y: 0.000000018440566, z: -0.0000000069020585, w: 0.93654865}
   m_LocalPosition: {x: -0.000000021542936, y: 3.4397154, z: -0.47246814}
   m_LocalScale: {x: 1, y: 1.9953766, z: 0.8742815}
   m_ConstrainProportionsScale: 0
@@ -2928,7 +2928,7 @@ MonoBehaviour:
   playerTra: {fileID: 5220995791467383298}
   mapAngle: {x: 30, y: 0, z: 0}
   stayMaps: 1
-  preBuildMaps: 7
+  preBuildMaps: 5
   pManager: {fileID: 716927254}
 --- !u!4 &1412380157
 Transform:
@@ -3406,7 +3406,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.778165, y: 1}
+    m_SensorSize: {x: 1.777528, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3422,7 +3422,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824105327}
-  m_LocalRotation: {x: -0, y: 8.31335e-13, z: -7.234213e-13, w: 1}
+  m_LocalRotation: {x: -0, y: 3.058691e-10, z: -2.6626834e-10, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4320,7 +4320,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 373764c659c1f7e4fbc50ecad55470de, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

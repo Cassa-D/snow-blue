@@ -19,13 +19,17 @@ public class MapGenerator : ResetScript
     private List<GameObject> _generatedMaps;
 
     public PointsManager pManager;
-    private int _currDifficultyLevel;
+    private int _currDifficultyLevel = 0;
+    private int _lastDifficultyLevel = 0;
+
+    private GameObject[] _currDifficultyLevelMaps;
 
     void Start()
     {
         _generatedMaps = new List<GameObject>();
         transform.rotation = Quaternion.Euler(mapAngle);
 
+        _currDifficultyLevelMaps = GetCurrDifficultyLevelMaps();
         for (var i = 0; i < preBuildMaps; i++)
         {
             GenerateMap();
@@ -34,6 +38,7 @@ public class MapGenerator : ResetScript
 
     private void Update()
     {
+        ManageDifficultyLevel();
         if (!_creatingSection)
         {
             _creatingSection = true;
@@ -50,16 +55,12 @@ public class MapGenerator : ResetScript
         {
             _creatingSection = false;
         }
-
-        _currDifficultyLevel = Mathf.FloorToInt(pManager.meters / 100);
     }
 
     void GenerateMap()
     {
-        var currDifficultyLevelMaps = GetCurrDifficultyLevelMaps();
-        
-        var index = Random.Range(0, currDifficultyLevelMaps.Length);
-        var map = currDifficultyLevelMaps[index];
+        var index = Random.Range(0, _currDifficultyLevelMaps.Length);
+        var map = _currDifficultyLevelMaps[index];
         
         var groundChild = map.transform.Find("Ground");
         // Z Scale * Half plane unit default size (10 / 2)
@@ -77,6 +78,17 @@ public class MapGenerator : ResetScript
         var createdMap = Instantiate(map, transform);
         createdMap.transform.localPosition = new Vector3(0,  0, groundPos);
         _generatedMaps.Add(createdMap);
+    }
+
+    private void ManageDifficultyLevel()
+    {
+        _currDifficultyLevel = Mathf.FloorToInt(pManager.meters / 100);
+
+        if (_lastDifficultyLevel != _currDifficultyLevel)
+        {
+            _lastDifficultyLevel = _currDifficultyLevel;
+            _currDifficultyLevelMaps = GetCurrDifficultyLevelMaps();
+        }
     }
 
     private GameObject[] GetCurrDifficultyLevelMaps()
