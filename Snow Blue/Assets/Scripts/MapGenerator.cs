@@ -107,6 +107,7 @@ public class MapGenerator : ResetScript
     public override void Reset()
     {
         _currDifficultyLevel = 0;
+        _currDifficultyLevelMaps = GetCurrDifficultyLevelMaps();
         foreach (var map in _generatedMaps)
         {
             Destroy(map);

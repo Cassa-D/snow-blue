@@ -24,6 +24,10 @@ public class Movement : ResetScript
 
     public TMP_Text velocity;
 
+    private bool _hasCrashed;
+
+    [SerializeField] private MenuHandler menuHandler; 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,6 +36,22 @@ public class Movement : ResetScript
 
     void Update()
     {
+        velocity.text = Mathf.RoundToInt(rb.velocity.z) + " km/h";
+        
+        snowParticles.SetActive(isGrounded && rb.velocity.z > 1);
+        
+        if (!audio.isPlaying && isGrounded && rb.velocity.z > 1)
+        {
+            audio.Play();
+        }
+
+        if (!isGrounded || rb.velocity.z < 1)
+        {
+            audio.Stop();
+        }
+        
+        if (_hasCrashed) return;
+        
         movement = Input.GetAxis("Horizontal");
         
         if (rb.velocity.z > maxSpeed)
@@ -42,24 +62,12 @@ public class Movement : ResetScript
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, minSpeed);
         }
-
-        snowParticles.SetActive(isGrounded);
-
-        velocity.text = Mathf.RoundToInt(rb.velocity.z) + " km/h";
-        
-        if (!audio.isPlaying && isGrounded)
-        {
-            audio.Play();
-        }
-
-        if (!isGrounded)
-        {
-            audio.Stop();
-        }
     }
     
     void FixedUpdate() 
     {
+        if (_hasCrashed) return;
+        
         if (_startImpulseTimer <= 1)
         {
             _startImpulseTimer += Time.fixedDeltaTime;
@@ -74,6 +82,8 @@ public class Movement : ResetScript
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_hasCrashed) return;
+        
         if (collision.gameObject.CompareTag("Objects"))
         {
             if (collision.gameObject.GetComponentInParent<AudioSource>() && enabled)
@@ -81,9 +91,11 @@ public class Movement : ResetScript
                 collision.gameObject.GetComponentInParent<AudioSource>().Play();
             }
             
-            enabled = false;
+            _hasCrashed = true;
             snowParticles.SetActive(false);
             audio.Stop();
+            menuHandler.SetHighScore();
+            menuHandler.Show();
         }
     }
 
@@ -102,9 +114,9 @@ public class Movement : ResetScript
             isGrounded = false;
         }
 
-        if (other.gameObject.CompareTag("Ramp"))
+        if (other.gameObject.CompareTag("Ramp") && !_hasCrashed)
         {
-            rb.AddForce(Vector3.forward * 2, ForceMode.Impulse);
+            rb.AddForce(Vector3.forward, ForceMode.Impulse);
         }
     }
 
@@ -112,7 +124,11 @@ public class Movement : ResetScript
 
     public override void Reset(Vector3 startPosition)
     {
-        enabled = true;
+        if (_hasCrashed)
+        {
+            menuHandler.Show();
+        }
+        _hasCrashed = false;
         _startImpulseTimer = 0;
         rb.velocity = Vector3.zero;
 
