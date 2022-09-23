@@ -12,9 +12,9 @@ namespace Menu
             Application.Quit();
         }
 
-        public void ChangeScene(SceneAsset scene)
+        public void ChangeScene(string scene)
         {
-            SceneManager.LoadScene(scene.name);
+            SceneManager.LoadScene(scene);
         }
 
         public void OpenForm()

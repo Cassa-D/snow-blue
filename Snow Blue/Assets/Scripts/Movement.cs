@@ -26,7 +26,11 @@ public class Movement : ResetScript
 
     private bool _hasCrashed;
 
-    [SerializeField] private MenuHandler menuHandler; 
+    [SerializeField] private MenuHandler menuHandler;
+
+    [SerializeField] private AudioSource backgroundMusic;
+    [SerializeField] private AudioClip loseMusic;
+    [SerializeField] private AudioClip gameLoopMusic;
 
     private void Start()
     {
@@ -92,10 +96,12 @@ public class Movement : ResetScript
             }
             
             _hasCrashed = true;
-            snowParticles.SetActive(false);
-            audio.Stop();
             menuHandler.SetHighScore();
             menuHandler.Show();
+
+            backgroundMusic.clip = loseMusic;
+            backgroundMusic.volume = 0.75f;
+            backgroundMusic.Play();
         }
     }
 
@@ -127,6 +133,10 @@ public class Movement : ResetScript
         if (_hasCrashed)
         {
             menuHandler.Show();
+            
+            backgroundMusic.clip = gameLoopMusic;
+            backgroundMusic.volume = 0.25f;
+            backgroundMusic.Play();
         }
         _hasCrashed = false;
         _startImpulseTimer = 0;

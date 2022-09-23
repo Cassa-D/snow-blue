@@ -14,7 +14,7 @@ public class MenuHandler : MonoBehaviour
 
     private bool _canGoToStartMenu;
 
-    [SerializeField] private SceneAsset startMenuScene;
+    [SerializeField] private string startMenuScene;
     
     [Header("Points Manager")]
     [SerializeField] private PointsManager pointsManager;

@@ -681,7 +681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameHUDAnimator: {fileID: 890577523}
   scoreMenuAnimator: {fileID: 965636131}
-  startMenuScene: {fileID: 102900000, guid: 9af2169ad81a6bb4fa43542366107079, type: 3}
+  startMenuScene: StartMenu
   pointsManager: {fileID: 716927254}
   scoreText: {fileID: 1563534033}
   highScoreText: {fileID: 516049589}
@@ -3548,7 +3548,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7765765, y: 1}
+    m_SensorSize: {x: 1.7776141, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4573,6 +4573,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 863245184}
     - target: {fileID: 7258713593253265268, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
+      propertyPath: loseMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e86975609722324d83135c6794b3df6, type: 3}
+    - target: {fileID: 7258713593253265268, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
       propertyPath: rigthDash
       value: 
       objectReference: {fileID: 8300000, guid: c652ebb7dc49f5546befa2363d1d04b5, type: 3}
@@ -4580,6 +4584,14 @@ PrefabInstance:
       propertyPath: menuHandler
       value: 
       objectReference: {fileID: 403268539}
+    - target: {fileID: 7258713593253265268, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
+      propertyPath: gameLoopMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 58556742a034df64297a7b05b8ac564a, type: 3}
+    - target: {fileID: 7258713593253265268, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 745185939}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
 --- !u!4 &5220995791467383298 stripped
