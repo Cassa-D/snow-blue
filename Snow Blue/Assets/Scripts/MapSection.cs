@@ -6,4 +6,6 @@ public class MapSection : MonoBehaviour
 {
     [Range(0, 4)]
     public int difficulty;
+
+    public float groundSize;
 }
