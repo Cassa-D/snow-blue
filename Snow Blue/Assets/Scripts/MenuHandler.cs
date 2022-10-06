@@ -41,7 +41,7 @@ public class MenuHandler : MonoBehaviour
 
     private void Update()
     {
-        if (_canGoToStartMenu && Input.GetKeyDown(KeyCode.Escape))
+        if (_canGoToStartMenu && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button13)))
         {
             GetComponent<Menu.Menu>().ChangeScene(startMenuScene);
         }

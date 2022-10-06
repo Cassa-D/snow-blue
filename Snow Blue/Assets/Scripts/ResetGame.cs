@@ -26,7 +26,7 @@ public class ResetGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("r"))
+        if (Input.GetKeyDown("r") || Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             foreach (var script in resetScripts)
             {

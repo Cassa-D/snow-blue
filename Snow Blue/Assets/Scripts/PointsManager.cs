@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
@@ -9,13 +10,13 @@ public class PointsManager : MonoBehaviour
     public float meters;
     public Transform player;
 
-    public TMP_Text textGUI;
+    [CanBeNull] public TMP_Text textGUI;
 
     // Update is called once per frame
     void Update()
     {
         // Show meters on screen
-        textGUI.text = CalculateMeters().ToString();
+        if (textGUI != null) textGUI.text = CalculateMeters().ToString();
     }
 
     public void Reset()

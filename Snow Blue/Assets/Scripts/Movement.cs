@@ -79,7 +79,7 @@ public class Movement : ResetScript
         }
         else
         {
-            rb.AddForce(Vector3.forward * 4, ForceMode.Acceleration);
+            rb.AddForce(Vector3.forward * 5, ForceMode.Acceleration);
             rb.MovePosition(rb.position + new Vector3(movement, 0) * speed * Time.fixedDeltaTime);
         }
     }

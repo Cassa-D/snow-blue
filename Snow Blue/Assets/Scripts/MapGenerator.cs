@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -51,7 +52,11 @@ public class MapGenerator : ResetScript
 
         if (_generatedMaps.Count > stayMaps + preBuildMaps)
         {
-            ground.localScale -= new Vector3(0,0,_generatedMaps[0].GetComponent<MapSection>().groundSize * 10);
+            var removeScale = _generatedMaps[0].GetComponent<MapSection>().groundSize * 10;
+            
+            ground.localScale -= new Vector3(0, 0, removeScale);
+            ground.localPosition += new Vector3(0, 0, removeScale / 2);
+            
             Destroy(_generatedMaps[0]);
             _generatedMaps.RemoveAt(0);
         }
@@ -84,7 +89,7 @@ public class MapGenerator : ResetScript
         _generatedMaps.Add(createdMap);
 
         ground.localScale += new Vector3(0, 0, childSize);
-        ground.localPosition += new Vector3(0, 0, childSize / 2 + _generatedMaps.Count > 1 ? _generatedMaps[^2].GetComponent<MapSection>().groundSize / 2 : 0);
+        ground.localPosition += new Vector3(0, 0, childSize / 2);
     }
 
     private void ManageDifficultyLevel()
