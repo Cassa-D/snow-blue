@@ -32,10 +32,14 @@ public class Movement : ResetScript
     [SerializeField] private AudioClip loseMusic;
     [SerializeField] private AudioClip gameLoopMusic;
 
+    // private float _distToGround;
+    // [SerializeField] private Collider collider;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         audio = GetComponent<AudioSource>();
+        // _distToGround = collider.bounds.extents.y;
     }
 
     void Update()
@@ -66,6 +70,23 @@ public class Movement : ResetScript
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, minSpeed);
         }
+
+        if (_startImpulseTimer <= 1) return;
+        
+        if (rb.rotation.eulerAngles.x is >= 45 and < 180)
+        {
+            rb.rotation = Quaternion.Euler(45, rb.rotation.eulerAngles.y, rb.rotation.eulerAngles.z);
+        }
+    
+        if (rb.rotation.eulerAngles.x is <= 355 and > 180)
+        {
+            rb.rotation = Quaternion.Euler(345, rb.rotation.eulerAngles.y, rb.rotation.eulerAngles.z);
+        }
+        
+        // if (IsGrounded())
+        // {
+        //     Debug.Log("Ta achando o chão!");
+        // }
     }
     
     void FixedUpdate() 
@@ -79,7 +100,7 @@ public class Movement : ResetScript
         }
         else
         {
-            rb.AddForce(Vector3.forward * 5, ForceMode.Acceleration);
+            rb.AddForce(Vector3.forward * 4.5f, ForceMode.Acceleration);
             rb.MovePosition(rb.position + new Vector3(movement, 0) * speed * Time.fixedDeltaTime);
         }
     }
@@ -87,22 +108,21 @@ public class Movement : ResetScript
     private void OnCollisionEnter(Collision collision)
     {
         if (_hasCrashed) return;
-        
-        if (collision.gameObject.CompareTag("Objects"))
-        {
-            if (collision.gameObject.GetComponentInParent<AudioSource>() && enabled)
-            {
-                collision.gameObject.GetComponentInParent<AudioSource>().Play();
-            }
-            
-            _hasCrashed = true;
-            menuHandler.SetHighScore();
-            menuHandler.Show();
 
-            backgroundMusic.clip = loseMusic;
-            backgroundMusic.volume = 0.75f;
-            backgroundMusic.Play();
+        if (!collision.gameObject.CompareTag("Objects")) return;
+        
+        if (collision.gameObject.GetComponentInParent<AudioSource>() && enabled)
+        {
+            collision.gameObject.GetComponentInParent<AudioSource>().Play();
         }
+            
+        _hasCrashed = true;
+        menuHandler.SetHighScore();
+        menuHandler.Show();
+
+        backgroundMusic.clip = loseMusic;
+        backgroundMusic.volume = 0.75f;
+        backgroundMusic.Play();
     }
 
     private void OnCollisionStay(Collision collisionInfo)
@@ -145,4 +165,9 @@ public class Movement : ResetScript
         transform.position = startPosition;
         transform.rotation = Quaternion.Euler(Vector3.zero);
     }
+    
+    // private bool IsGrounded()
+    // {
+    //     return Physics.Raycast(transform.position, -Vector3.up, _distToGround + 5);
+    // }
 }
