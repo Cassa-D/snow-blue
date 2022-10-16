@@ -23,16 +23,12 @@ public class ResetGame : MonoBehaviour
         _startPosition = player.transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Reset()
     {
-        if (Input.GetKeyDown("r") || Input.GetKeyDown(KeyCode.Joystick1Button0))
+        foreach (var script in resetScripts)
         {
-            foreach (var script in resetScripts)
-            {
-                script.Reset();
-                script.Reset(_startPosition);
-            }
+            script.Reset();
+            script.Reset(_startPosition);
         }
     }
 }

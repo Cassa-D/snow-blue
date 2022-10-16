@@ -12,8 +12,6 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] private Animator gameHUDAnimator;
     [SerializeField] private Animator scoreMenuAnimator;
 
-    private bool _canGoToStartMenu;
-
     [SerializeField] private string startMenuScene;
     
     [Header("Points Manager")]
@@ -36,15 +34,6 @@ public class MenuHandler : MonoBehaviour
     {
         gameHUDAnimator.SetTrigger("Show");
         scoreMenuAnimator.SetTrigger("Show");
-        _canGoToStartMenu = !_canGoToStartMenu;
-    }
-
-    private void Update()
-    {
-        if (_canGoToStartMenu && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button13)))
-        {
-            GetComponent<Menu.Menu>().ChangeScene(startMenuScene);
-        }
     }
 
     public void SetHighScore()
@@ -69,5 +58,10 @@ public class MenuHandler : MonoBehaviour
         var prefix = beatHighScore ? "Novo " : "";
 
         highScoreText.text = $"{prefix}High Score: {highScore.ToString()}";
+    }
+
+    public void GoToStartMenu()
+    {
+        GetComponent<Menu.Menu>().ChangeScene(startMenuScene);
     }
 }

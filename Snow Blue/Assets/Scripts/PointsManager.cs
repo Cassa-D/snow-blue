@@ -16,7 +16,7 @@ public class PointsManager : MonoBehaviour
     void Update()
     {
         // Show meters on screen
-        if (textGUI != null) textGUI.text = CalculateMeters().ToString();
+        if (textGUI) textGUI.text = CalculateMeters().ToString();
     }
 
     public void Reset()

@@ -32,15 +32,15 @@ public class RotateAroundObject : MonoBehaviour
         if (mainCamera.gameObject.activeSelf) return;
         
         transform.Rotate(0, speed * Time.deltaTime, 0);
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button1))
-        {
-            mainCamera.gameObject.SetActive(true);
-            rotatingCamera.gameObject.SetActive(false);
-            playerScript.enabled = true;
-            
-            gameUI.SetTrigger("Show");
-            rotateUI.SetTrigger("Hide");
-        }
+    public void StartGame()
+    {
+        mainCamera.gameObject.SetActive(true);
+        rotatingCamera.gameObject.SetActive(false);
+        playerScript.enabled = true;
+
+        gameUI.SetTrigger("Show");
+        rotateUI.SetTrigger("Hide");
     }
 }
