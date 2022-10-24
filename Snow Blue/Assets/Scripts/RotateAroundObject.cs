@@ -16,7 +16,6 @@ public class RotateAroundObject : MonoBehaviour
 
     [Header("Canvas")]
     [SerializeField] private Animator gameUI;
-    [SerializeField] private Animator rotateUI;
 
     private void Start()
     {
@@ -41,6 +40,14 @@ public class RotateAroundObject : MonoBehaviour
         playerScript.enabled = true;
 
         gameUI.SetTrigger("Show");
-        rotateUI.SetTrigger("Hide");
+    }
+
+    public void GoToStartMenu()
+    {
+        mainCamera.gameObject.SetActive(false);
+        rotatingCamera.gameObject.SetActive(true);
+        playerScript.enabled = false;
+
+        // gameUI.SetTrigger("Show");
     }
 }

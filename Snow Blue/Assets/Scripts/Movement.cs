@@ -18,7 +18,7 @@ public class Movement : ResetScript
     public float minSpeed;
 
     private bool isGrounded;
-    public GameObject snowParticles;
+    public ParticleSystem snowParticles;
 
     private AudioSource audio;
 
@@ -29,8 +29,8 @@ public class Movement : ResetScript
     [SerializeField] private MenuHandler menuHandler;
 
     [SerializeField] private AudioSource backgroundMusic;
-    [SerializeField] private AudioClip loseMusic;
-    [SerializeField] private AudioClip gameLoopMusic;
+    [SerializeField] private LoopSounds loseSounds;
+    [SerializeField] private LoopSounds gameSounds;
 
     private const int MinRotation = 45;
     private const int MaxRotation = 355;
@@ -47,7 +47,11 @@ public class Movement : ResetScript
 
         if (isGrounded && rb.velocity.z > 1)
         {
-            snowParticles.SetActive(true);
+            // snowParticles.SetActive(true);
+            if (!snowParticles.isPlaying)
+            {
+                snowParticles.Play();
+            }
             if (!audio.isPlaying)
             {
                 audio.Play();
@@ -55,7 +59,11 @@ public class Movement : ResetScript
         }
         else
         {
-            snowParticles.SetActive(false);
+            // snowParticles.SetActive(false);
+            if (snowParticles.isPlaying)
+            {
+                snowParticles.Stop();                
+            }
             audio.Stop();
         }
 
@@ -118,7 +126,9 @@ public class Movement : ResetScript
         menuHandler.SetHighScore();
         menuHandler.Show();
 
-        PlayBgMusic(loseMusic, 0.75f);
+        gameSounds.enabled = false;
+        loseSounds.enabled = true;
+        loseSounds.SwitchMusic(0, 0.75f);
     }
 
     private void OnCollisionStay(Collision collisionInfo)
@@ -148,9 +158,9 @@ public class Movement : ResetScript
     {
         if (_hasCrashed)
         {
-            menuHandler.Show();
-
-            PlayBgMusic(gameLoopMusic, 0.25f);
+            gameSounds.enabled = true;
+            loseSounds.enabled = false;
+            gameSounds.SwitchMusic(0, 0.5f);
         }
         _hasCrashed = false;
         _startImpulseTimer = 0;
@@ -158,12 +168,5 @@ public class Movement : ResetScript
 
         transform.position = startPosition;
         transform.rotation = Quaternion.Euler(Vector3.zero);
-    }
-
-    private void PlayBgMusic(AudioClip music, float volume)
-    {
-        backgroundMusic.clip = music;
-        backgroundMusic.volume = volume;
-        backgroundMusic.Play();
     }
 }
