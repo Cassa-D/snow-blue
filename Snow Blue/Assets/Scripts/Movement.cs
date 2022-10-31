@@ -43,7 +43,7 @@ public class Movement : ResetScript
 
     private void Update()
     {
-        velocity.text = Mathf.RoundToInt(rb.velocity.z) + " km/h";
+        velocity.text = Mathf.RoundToInt(rb.velocity.z * 1.5f) + " km/h";
 
         if (isGrounded && rb.velocity.z > 1)
         {
@@ -111,7 +111,7 @@ public class Movement : ResetScript
         }
         else
         {
-            rb.AddForce(Vector3.forward * 5, ForceMode.Acceleration);
+            rb.AddForce(Vector3.forward * 7.5f, ForceMode.Acceleration);
             rb.MovePosition(rb.position + new Vector3(movement, 0) * speed * Time.fixedDeltaTime);
         }
     }

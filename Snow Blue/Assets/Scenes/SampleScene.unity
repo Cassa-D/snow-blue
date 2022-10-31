@@ -20,25 +20,25 @@ RenderSettings:
   m_FogDensity: 0.02
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.3325472, g: 0.42336905, b: 0.5, a: 1}
+  m_AmbientSkyColor: {r: 0.503026, g: 0.5972829, b: 0.6792453, a: 1}
   m_AmbientEquatorColor: {r: 0.17254902, g: 0.26666668, b: 0.34901962, a: 1}
   m_AmbientGroundColor: {r: 0.07450981, g: 0.11372549, b: 0.14901961, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubtractiveShadowColor: {r: 0.87058824, g: 0.92156863, b: 0.9647059, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: fdb7807b339b9b544851276401fb87b0, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 128
+  m_DefaultReflectionResolution: 256
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.67125946, g: 0.7194148, b: 0.84404075, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4142,7 +4142,7 @@ Camera:
   m_GameObject: {fileID: 547092649}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.8666667, g: 0.92156863, b: 0.9607843, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -8941,7 +8941,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.86694556, g: 0.92032397, b: 0.9622642, a: 1}
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
@@ -12444,15 +12444,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maps:
-  - {fileID: 937727904462526590, guid: e6dc2d6207b981c49a576c332cd5622d, type: 3}
-  - {fileID: 5714352818615403145, guid: 92b35f0219c7fba489e150a446f1435b, type: 3}
-  - {fileID: 5714352818615403145, guid: 4e504bda16c5da147abceed938633e50, type: 3}
-  - {fileID: 2689187966832519970, guid: ea287df8fec79a943a94afe8a94dee68, type: 3}
-  - {fileID: 2689187966832519970, guid: b678211f3e1daae4bb2af382068b43a6, type: 3}
-  - {fileID: 2689187966832519970, guid: a38a427be1a0add4eaa283e7fac3204d, type: 3}
-  - {fileID: 2689187966832519970, guid: 8c77fbb51ab177b4fac43ba1f5e1b9f6, type: 3}
+  - name: Ramp 1
+    mapPrefab: {fileID: 937727904462526590, guid: e6dc2d6207b981c49a576c332cd5622d, type: 3}
+    difficulty: 0
+    groundSize: 2
+  - name: Ramp 2
+    mapPrefab: {fileID: 937727904462526590, guid: b0debbd2b31e3ec4ebcb658488b3c51c, type: 3}
+    difficulty: 2
+    groundSize: 5
+  - name: Ramp 3
+    mapPrefab: {fileID: 937727904462526590, guid: 11a48d9d53ce9fd43a23ba2186150264, type: 3}
+    difficulty: 1
+    groundSize: 3
+  - name: Ramp 4
+    mapPrefab: {fileID: 937727904462526590, guid: dc58a904bd5b55842b7030f73bba2554, type: 3}
+    difficulty: 0
+    groundSize: 2
+  - name: Rock 1
+    mapPrefab: {fileID: 5714352818615403145, guid: 92b35f0219c7fba489e150a446f1435b, type: 3}
+    difficulty: 4
+    groundSize: 4
+  - name: Rock 2
+    mapPrefab: {fileID: 5714352818615403145, guid: 4e504bda16c5da147abceed938633e50, type: 3}
+    difficulty: 3
+    groundSize: 2
+  - name: Tree 1
+    mapPrefab: {fileID: 2689187966832519970, guid: ea287df8fec79a943a94afe8a94dee68, type: 3}
+    difficulty: 0
+    groundSize: 0
+  - name: Tree 2
+    mapPrefab: {fileID: 2689187966832519970, guid: b678211f3e1daae4bb2af382068b43a6, type: 3}
+    difficulty: 0
+    groundSize: 0
+  - name: Tree 3
+    mapPrefab: {fileID: 2689187966832519970, guid: a38a427be1a0add4eaa283e7fac3204d, type: 3}
+    difficulty: 0
+    groundSize: 0
+  - name: Tree 4
+    mapPrefab: {fileID: 2689187966832519970, guid: 8c77fbb51ab177b4fac43ba1f5e1b9f6, type: 3}
+    difficulty: 0
+    groundSize: 0
   playerTra: {fileID: 5220995791467383298}
-  mapAngle: {x: 30, y: 0, z: 0}
+  mapAngle: {x: 15, y: 0, z: 0}
   stayMaps: 1
   preBuildMaps: 8
   pManager: {fileID: 716927254}
@@ -12464,7 +12497,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412380155}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12472,7 +12505,7 @@ Transform:
   - {fileID: 329783770}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!4 &1421783664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 472706, guid: 693d28a018bbad04d9a911a4b8a6bae5, type: 3}
@@ -15576,7 +15609,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 5, z: 30}
+  m_Size: {x: 15, y: 5, z: 35}
   m_Center: {x: 0, y: 0, z: 15}
 --- !u!114 &1787166249
 MonoBehaviour:
@@ -18550,7 +18583,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7258713593253265268, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
       propertyPath: speed
-      value: 10
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258713593253265268, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
+      propertyPath: maxSpeed
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7258713593253265268, guid: 83c284a6f39a47c4cb5dc632cc04c352, type: 3}
       propertyPath: velocity

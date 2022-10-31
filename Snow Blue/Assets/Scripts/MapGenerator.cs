@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class MapGenerator : ResetScript
 {
-    public GameObject[] maps;
+    public MapSection[] maps;
     public Transform playerTra;
 
     public Vector3 mapAngle;
@@ -108,9 +108,9 @@ public class MapGenerator : ResetScript
         var tmpMaps = new List<GameObject>();
         foreach (var map in maps)
         {
-            if (_currDifficultyLevel >= map.GetComponent<MapSection>().difficulty)
+            if (_currDifficultyLevel >= map.difficulty)
             {
-                tmpMaps.Add(map);
+                tmpMaps.Add(map.mapPrefab);
             }
         }
         return tmpMaps.ToArray();
