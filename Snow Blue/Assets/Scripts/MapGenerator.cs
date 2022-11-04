@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -52,7 +54,7 @@ public class MapGenerator : ResetScript
 
         if (_generatedMaps.Count > stayMaps + preBuildMaps)
         {
-            var removeScale = _generatedMaps[0].GetComponent<MapSection>().groundSize * 10;
+            var removeScale = GetMapFromName(_generatedMaps[0].name.Replace("(Clone)", "")).groundSize * 10;
             
             ground.localScale -= new Vector3(0, 0, removeScale);
             ground.localPosition += new Vector3(0, 0, removeScale / 2);
@@ -70,21 +72,21 @@ public class MapGenerator : ResetScript
     void GenerateMap()
     {
         var index = Random.Range(0, _currDifficultyLevelMaps.Length);
-        var map = _currDifficultyLevelMaps[index];
+        var map = GetMapFromName(_currDifficultyLevelMaps[index].name.Replace("(Clone)", ""));
         
-        var childSize = map.GetComponent<MapSection>().groundSize * 10;
+        var childSize = map.groundSize * 10;
         var groundPos = childSize / 2;
 
         if (_generatedMaps.Count > 0)
         {
             var prevMap = _generatedMaps[^1];
-            var prevChildSize = prevMap.GetComponent<MapSection>().groundSize;
+            var prevChildSize = GetMapFromName(prevMap.name.Replace("(Clone)", "")).groundSize;
             var prevPos = prevMap.transform.localPosition.z + 10 * prevChildSize / 2 + groundPos;
         
             groundPos = prevPos;
         }
         
-        var createdMap = Instantiate(map, transform);
+        var createdMap = Instantiate(map.mapPrefab, transform);
         createdMap.transform.localPosition = new Vector3(0, 0, groundPos);
         _generatedMaps.Add(createdMap);
 
@@ -110,10 +112,17 @@ public class MapGenerator : ResetScript
         {
             if (_currDifficultyLevel >= map.difficulty)
             {
-                tmpMaps.Add(map.mapPrefab);
+                var mapPrefab = map.mapPrefab;
+                mapPrefab.name = map.name;
+                tmpMaps.Add(mapPrefab);
             }
         }
         return tmpMaps.ToArray();
+    }
+
+    private MapSection GetMapFromName(string name)
+    {
+        return maps.FirstOrDefault(mapSection => mapSection.name == name);
     }
 
     public override void Reset()
