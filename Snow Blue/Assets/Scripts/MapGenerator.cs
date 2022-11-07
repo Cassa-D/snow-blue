@@ -27,7 +27,9 @@ public class MapGenerator : ResetScript
 
     private GameObject[] _currDifficultyLevelMaps;
 
-    [SerializeField] private Transform ground; 
+    [SerializeField] private Transform ground;
+    
+    private string _lastSectionCreated;
 
     void Start()
     {
@@ -73,6 +75,12 @@ public class MapGenerator : ResetScript
     {
         var index = Random.Range(0, _currDifficultyLevelMaps.Length);
         var map = GetMapFromName(_currDifficultyLevelMaps[index].name.Replace("(Clone)", ""));
+
+        if (_lastSectionCreated == map.name)
+        {
+            GenerateMap();
+            return;
+        }
         
         var childSize = map.groundSize * 10;
         var groundPos = childSize / 2;
@@ -89,6 +97,8 @@ public class MapGenerator : ResetScript
         var createdMap = Instantiate(map.mapPrefab, transform);
         createdMap.transform.localPosition = new Vector3(0, 0, groundPos);
         _generatedMaps.Add(createdMap);
+
+        _lastSectionCreated = map.name;
 
         ground.localScale += new Vector3(0, 0, childSize);
         ground.localPosition += new Vector3(0, 0, childSize / 2);

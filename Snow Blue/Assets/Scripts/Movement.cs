@@ -28,12 +28,11 @@ public class Movement : ResetScript
 
     [SerializeField] private MenuHandler menuHandler;
 
-    [SerializeField] private AudioSource backgroundMusic;
     [SerializeField] private LoopSounds loseSounds;
     [SerializeField] private LoopSounds gameSounds;
 
-    private const int MinRotation = 45;
-    private const int MaxRotation = 355;
+    private const float MinRotation = 30.25f;
+    private const float MaxRotation = 355;
 
     private void Start()
     {
@@ -111,8 +110,8 @@ public class Movement : ResetScript
         }
         else
         {
-            rb.AddForce(Vector3.forward * 7.5f, ForceMode.Acceleration);
-            rb.MovePosition(rb.position + new Vector3(movement, 0) * speed * Time.fixedDeltaTime);
+            rb.AddForce(Vector3.forward * 8, ForceMode.Acceleration);
+            rb.MovePosition(rb.position + new Vector3(movement, 0) * (Time.fixedDeltaTime * (speed + rb.velocity.z / 4)));
         }
     }
 
