@@ -21,7 +21,6 @@ public class MapGenerator : ResetScript
     private bool _creatingSection;
     private List<GameObject> _generatedMaps;
 
-    public PointsManager pManager;
     private int _currDifficultyLevel = 0;
     private int _lastDifficultyLevel = 0;
 
@@ -106,7 +105,7 @@ public class MapGenerator : ResetScript
 
     private void ManageDifficultyLevel()
     {
-        _currDifficultyLevel = Mathf.FloorToInt(pManager.meters / 100);
+        _currDifficultyLevel = Mathf.FloorToInt(PointsManager.instance.meters / 100);
 
         if (_lastDifficultyLevel != _currDifficultyLevel)
         {

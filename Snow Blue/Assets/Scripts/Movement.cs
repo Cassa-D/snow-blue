@@ -99,7 +99,7 @@ public class Movement : ResetScript
         return firstTouch.position.x > halfScreen ? 1 : -1;
     }
     
-    private void FixedUpdate() 
+    private void FixedUpdate()
     {
         if (_hasCrashed) return;
         
@@ -119,6 +119,8 @@ public class Movement : ResetScript
     {
         if (_hasCrashed || !collision.gameObject.CompareTag("Objects")) return;
         
+        PointsManager.instance.AddCoins();
+        
         collision.gameObject.GetComponentInParent<AudioSource>()?.Play();
 
         _hasCrashed = true;
@@ -128,6 +130,8 @@ public class Movement : ResetScript
         gameSounds.enabled = false;
         loseSounds.enabled = true;
         loseSounds.SwitchMusic(0, 0.75f);
+        
+        PointsManager.instance.Reset();
     }
 
     private void OnCollisionStay(Collision collisionInfo)
@@ -148,6 +152,15 @@ public class Movement : ResetScript
         if (other.gameObject.CompareTag("Ramp") && !_hasCrashed)
         {
             rb.AddForce(Vector3.forward, ForceMode.Impulse);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Coin")
+        {
+            PointsManager.instance.CollectCoin();
+            other.gameObject.GetComponent<Coin>().Collect();
         }
     }
 

@@ -4889,6 +4889,8 @@ GameObject:
   - component: {fileID: 6413566585005479903}
   - component: {fileID: 5220995791467383305}
   - component: {fileID: 7871897681591291616}
+  - component: {fileID: 5451750318776579610}
+  - component: {fileID: 4391177822781107483}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -4925,21 +4927,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 513579700898913571}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd7b9b72e779cb842a605e839ed975f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 5
   startImpulse: 20
-  maxSpeed: 40
+  maxSpeed: 50
   minSpeed: 10
   snowParticles: {fileID: 6059332008113823533}
   velocity: {fileID: 0}
   menuHandler: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  loseMusic: {fileID: 8300000, guid: 9e86975609722324d83135c6794b3df6, type: 3}
-  gameLoopMusic: {fileID: 8300000, guid: 58556742a034df64297a7b05b8ac564a, type: 3}
+  loseSounds: {fileID: 0}
+  gameSounds: {fileID: 0}
 --- !u!54 &1372546256570972829
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5074,7 +5075,7 @@ CharacterController:
   m_GameObject: {fileID: 513579700898913571}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
@@ -5082,6 +5083,32 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &5451750318776579610
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513579700898913571}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.9395792, y: 7.6101604, z: 6.663594}
+  m_Center: {x: 0, y: 3.6402636, z: 0.17110802}
+--- !u!65 &4391177822781107483
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513579700898913571}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &631669867288907670
 GameObject:
@@ -5631,7 +5658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4081059455587561862
 Transform:
   m_ObjectHideFlags: 0
@@ -6215,7 +6242,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 3000
+    maxNumParticles: 2000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
