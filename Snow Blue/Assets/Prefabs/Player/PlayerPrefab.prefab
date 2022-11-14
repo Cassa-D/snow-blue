@@ -4889,8 +4889,6 @@ GameObject:
   - component: {fileID: 6413566585005479903}
   - component: {fileID: 5220995791467383305}
   - component: {fileID: 7871897681591291616}
-  - component: {fileID: 5451750318776579610}
-  - component: {fileID: 4391177822781107483}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -4968,8 +4966,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7360108, z: 6.663594}
-  m_Center: {x: 0, y: 0.2031891, z: 0.171108}
+  m_Size: {x: 2.5827017, y: 0.770987, z: 6.7521105}
+  m_Center: {x: 0.029294945, y: 0.20318946, z: 0.0570353}
 --- !u!82 &5220995791467383305
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5083,32 +5081,6 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &5451750318776579610
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513579700898913571}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.9395792, y: 7.6101604, z: 6.663594}
-  m_Center: {x: 0, y: 3.6402636, z: 0.17110802}
---- !u!65 &4391177822781107483
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513579700898913571}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &631669867288907670
 GameObject:
