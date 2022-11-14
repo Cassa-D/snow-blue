@@ -15,10 +15,10 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] private string startMenuScene;
     
     [Header("Points Manager")]
-    [SerializeField] private PointsManager pointsManager;
-
-    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text distanceText;
+    [SerializeField] private TMP_Text coinsText;
     [SerializeField] private TMP_Text highScoreText;
+    [SerializeField] private TMP_Text totalCoinsText;
 
     [SerializeField] private bool resetPoints;
 
@@ -27,6 +27,7 @@ public class MenuHandler : MonoBehaviour
         if (resetPoints)
         {
             PlayerPrefs.DeleteKey("HighScore");
+            PlayerPrefs.DeleteKey("Coins");
         }
     }
 
@@ -38,26 +39,29 @@ public class MenuHandler : MonoBehaviour
 
     public void SetHighScore()
     {
-        var points = Mathf.RoundToInt(pointsManager.meters);
+        var distance = Mathf.RoundToInt(PointsManager.instance.meters);
+        var coins = Mathf.RoundToInt(PointsManager.instance.coins);
 
-        scoreText.text = $"Score: {points.ToString()}";
+        distanceText.text = $"Distância percorrida: {distance.ToString()}";
+        coinsText.text = $"Moedas coletadas: {coins.ToString()}";
 
         var highScore = PlayerPrefs.GetInt("HighScore", 0);
         
         var beatHighScore = false;
-        if (points > highScore)
+        if (distance > highScore)
         {
-            PlayerPrefs.SetInt("HighScore", points);
-            highScore = points;
+            PlayerPrefs.SetInt("HighScore", distance);
+            highScore = distance;
 
             beatHighScore = true;
         }
 
-        scoreText.enabled = !beatHighScore;
+        distanceText.enabled = !beatHighScore;
 
         var prefix = beatHighScore ? "Novo " : "";
 
         highScoreText.text = $"{prefix}High Score: {highScore.ToString()}";
+        totalCoinsText.text = $"Total de moedas: {GameManager.instance.GetCoins()}";
     }
 
     public void GoToStartMenu()

@@ -25,4 +25,9 @@ public class GameManager : MonoBehaviour
         this.coins += coins;
         PlayerPrefs.SetInt("Coins", this.coins);
     }
+
+    public int GetCoins()
+    {
+        return coins;
+    }
 }

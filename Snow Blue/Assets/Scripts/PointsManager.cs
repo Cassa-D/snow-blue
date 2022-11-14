@@ -13,7 +13,7 @@ public class PointsManager : MonoBehaviour
     [CanBeNull] public TMP_Text textGUI;
     [CanBeNull] public TMP_Text coinGUI;
 
-    [SerializeField] private int _coins;
+    public int coins;
 
     public static PointsManager instance;
 
@@ -27,13 +27,13 @@ public class PointsManager : MonoBehaviour
     {
         // Show meters on screen
         if (textGUI) textGUI.text = CalculateMeters().ToString();
-        if (coinGUI) coinGUI.text = _coins.ToString();
+        if (coinGUI) coinGUI.text = coins.ToString();
     }
 
     public void Reset()
     {
         meters = 0;
-        _coins = 0;
+        coins = 0;
     }
 
     private float CalculateMeters()
@@ -44,11 +44,11 @@ public class PointsManager : MonoBehaviour
 
     public void CollectCoin(int coin = 1)
     {
-        _coins += coin;
+        coins += coin;
     }
 
     public void AddCoins()
     {
-        GameManager.instance.AddCoins(_coins);
+        GameManager.instance.AddCoins(coins);
     }
 }
